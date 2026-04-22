@@ -5,8 +5,8 @@ The primary website for [Boise Code Camp](https://boisecodecamp.com), a free ann
 ## Repository Layout
 
 ```
-source/         Vue 3 SPA — currently deployed site
-source-astro/   Astro 6 + Vue 3 — in-progress migration
+source-astro/   Astro 6 + Vue 3 — primary production site
+legacy/         Vue 3 SPA — original site (for reference)
 inf/            Pulumi infrastructure (Azure)
 boisecodecamp.github.io/  Built output (git submodule → GitHub Pages)
 ```
@@ -15,7 +15,7 @@ boisecodecamp.github.io/  Built output (git submodule → GitHub Pages)
 
 ## Updating for a New Year
 
-All year-specific content lives in `source-astro/src/AppState.js` (and `source/src/AppState.js` for the live site). Update these fields:
+All year-specific content lives in `source-astro/src/AppState.js`. Update these fields:
 
 | Field                          | Description                                                       |
 | ------------------------------ | ----------------------------------------------------------------- |
@@ -33,7 +33,7 @@ All year-specific content lives in `source-astro/src/AppState.js` (and `source/s
 
 ## Development
 
-### Astro site (`source-astro/`) — migration target
+### Production Astro site (`source-astro/`)
 
 ```bash
 cd source-astro
@@ -42,15 +42,17 @@ npm install
 # Local dev server (http://localhost:4321)
 npm run dev
 
-# Production preview (use this to match what tests run against)
+# Production build
 npm run build
+
+# Local preview of production build
 npm run preview
 ```
 
-### Vue SPA (`source/`) — currently deployed
+### Legacy Vue SPA (`legacy/`)
 
 ```bash
-cd source
+cd legacy
 npm install
 
 # Local dev server (http://localhost:8080 by default)
@@ -90,8 +92,8 @@ The `playwright.config.js` automatically runs `npm run build && npm run preview`
 
 Deployment is triggered by pushing to the **`production`** branch. GitHub Actions (`.github/workflows/build-client.yml`) then:
 
-1. Builds `source/` with `npm ci && npm run build`
-2. Pushes the contents of `source/dist/` to the GitHub Pages repository
+1. Builds `source-astro/` with `npm ci && npm run build`
+2. Pushes the contents of `source-astro/dist/` to the GitHub Pages repository
 
 ```bash
 # Merge your changes to production and push

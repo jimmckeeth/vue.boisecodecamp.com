@@ -4,8 +4,8 @@ This repository contains the official website for **Boise Code Camp**, a free an
 
 ## Repository Overview
 
-- **`source/`**: The current production Vue 3 SPA built with Vite.
-- **`source-astro/`**: The migration target using Astro 6 and Vue 3 components.
+- **`source-astro/`**: The primary production site using Astro 6 and Vue 3 components.
+- **`legacy/`**: The original Vue 3 SPA (kept for reference).
 - **`inf/`**: Infrastructure as Code (IaC) using Pulumi (Azure) for static hosting and CDN.
 - **`boisecodecamp.github.io/`**: A git submodule pointing to the GitHub Pages repository where the built site is deployed.
 - **`sponsors/`**: Contains sponsor assets and a `sponors.csv` file used by the Astro build.

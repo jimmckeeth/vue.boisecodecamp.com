@@ -88,6 +88,8 @@ Diversity drives innovation. Our community embraces individuals from all walks o
   speakers: [],
   rooms: [],
   schedule: [],
+  loading: true,
+  error: null,
   volunteer: {
     shifts: [
       "Morning (07:00 AM - 11:00AM)",
