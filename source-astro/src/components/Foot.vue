@@ -48,7 +48,7 @@ import invertImg from '../assets/img/invert.png';
 export default {
   setup() {
     return {
-      invertImg
+      invertImg: invertImg?.src ?? invertImg
     }
   }
 };

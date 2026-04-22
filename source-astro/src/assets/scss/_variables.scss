@@ -52,21 +52,15 @@ $default-colors: (
     $shade-amount: 60%;
 
     --#{$variable-prefix}#{$color}: #{$value};
-    --#{$variable-prefix}#{$color}-text-emphasis: #{if(
-        $theme == "light",
-        shade-color($value, $shade-amount),
-        tint-color($value, $shade-amount)
-      )};
-    --#{$variable-prefix}#{$color}-bg-subtle: #{if(
-        $theme == "light",
-        lighten($value, $color-variation),
-        darken($value, $color-variation)
-      )};
-    --#{$variable-prefix}#{$color}-border-subtle: #{if(
-        $theme == "light",
-        lighten($value, calc($color-variation / 2)),
-        darken($value, calc($color-variation / 2))
-      )};
+    @if $theme == "light" {
+      --#{$variable-prefix}#{$color}-text-emphasis: #{shade-color($value, $shade-amount)};
+      --#{$variable-prefix}#{$color}-bg-subtle: #{lighten($value, $color-variation)};
+      --#{$variable-prefix}#{$color}-border-subtle: #{lighten($value, calc($color-variation / 2))};
+    } @else {
+      --#{$variable-prefix}#{$color}-text-emphasis: #{tint-color($value, $shade-amount)};
+      --#{$variable-prefix}#{$color}-bg-subtle: #{darken($value, $color-variation)};
+      --#{$variable-prefix}#{$color}-border-subtle: #{darken($value, calc($color-variation / 2))};
+    }
       .text-#{$color} {
         --bs-color: #{$value};
       }

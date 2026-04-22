@@ -45,8 +45,8 @@ import bgImg from '../assets/img/codecamp-header-bg.png';
 export default {
   setup() {
     return {
-      wordsImg,
-      bgImg
+      wordsImg: wordsImg?.src ?? wordsImg,
+      bgImg: bgImg?.src ?? bgImg
     }
   },
   computed: {

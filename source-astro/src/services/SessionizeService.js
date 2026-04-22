@@ -18,8 +18,28 @@ export default class SessionizeService {
       if (!data || data.cached < Date.now()) {
         data = await _fetchData();
       }
-      AppState.sessions = data.sessions || [];
-      AppState.speakers = data.speakers || [];
+
+      const rooms = data.rooms || [];
+      const speakers = data.speakers || [];
+      const allSessions = [...(data.sessions || []), ...(data.serviceSessions || [])];
+      
+      const sessions = allSessions.map(s => {
+        const room = rooms.find(r => String(r.id) === String(s.roomId));
+        return {
+          ...s,
+          room: room?.name || (s.isServiceSession ? 'All Rooms' : 'TBD'),
+          speakers: (s.speakers || []).map(sp => {
+            const id = typeof sp === 'string' ? sp : (sp.id || sp);
+            return String(id);
+          })
+        }
+      });
+
+      console.log('Sessionize data processed:', { rooms: rooms.length, sessions: sessions.length, speakers: speakers.length });
+      AppState.rooms = rooms;
+      AppState.speakers = speakers;
+      AppState.sessions = sessions;
+
     } catch (e) {
       console.error('SessionizeService error:', e);
     }

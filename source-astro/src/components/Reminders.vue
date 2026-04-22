@@ -6,7 +6,7 @@
         <div class="card p-3 d-flex flex-column align-items-center justify-content-center bg-dark text-light">
           <i class="mdi mdi-calendar fs-2 mb-3"></i>
           <h3>When</h3>
-          <p class="mb-0">Saturday, {{ conference.date }}</p>
+          <p class="mb-0">{{ conference.fullDate }}</p>
           <p>8:30 AM - 6:00 PM MST</p>
         </div>
       </div>

@@ -1,20 +1,12 @@
 <template>
-  <div class="sponsors container-fluid bg-white">
+  <div class="sponsors">
     <h3 class="text-center">{{ year }} Sponsors</h3>
-    <div class="row m-auto pl-3 py-4 sponsor-level" :class="level" v-for="(sponsors, level) in sponsorMap" :key="level">
-      <div class="col-12 text-center" :class="sponsors.length ? '' : 'd-none'">
-        <small class="uppercase">
-          <b>
-            {{ level == 'friends' ? "Friends of Code Camp" : level }}
-          </b>
-        </small>
-        <div class="text-center sponsor">
-          <a v-for="s in sponsors" :key="s.id" :href="s.url" target="_blank" rel="noopener" :title="s.name">
-            <img v-if="s.logo" :src="s.logo" class="rounded" :alt="s.name" />
-            <p v-else>{{ s.name }}</p>
-          </a>
-        </div>
-      </div>
+    <div class="d-flex flex-wrap justify-content-center gap-5 py-4">
+      <a v-for="s in sponsors" :key="s.id" :href="s.url" target="_blank" rel="noopener"
+        class="sponsor-card text-center text-decoration-none">
+        <img :src="s.logo" :alt="s.name" class="sponsor-logo" />
+        <p class="sponsor-name mt-2 mb-0">{{ s.name }}</p>
+      </a>
     </div>
   </div>
 </template>
@@ -23,93 +15,37 @@
 import { AppState } from '../AppState.js';
 
 export default {
-  props: ["hideGolds", "hideSilvers", "hideFriends"],
+  props: {
+    sponsors: {
+      type: Array,
+      required: true,
+    },
+  },
   computed: {
     year() {
       return AppState.currentYear;
     },
-    sponsors() {
-      return AppState.sponsors;
-    },
-    venue() {
-      return this.sponsors.filter(s => s.level == "venue");
-    },
-    platinums() {
-      return this.sponsors.filter(s => s.level == "platinum");
-    },
-    golds() {
-      return this.sponsors.filter(s => s.level == "gold");
-    },
-    silvers() {
-      return this.sponsors.filter(s => s.level == "silver");
-    },
-    community() {
-      return this.sponsors.filter(s => s.level == "community");
-    },
-    friends() {
-      return this.sponsors.filter(
-        s => s.level == "friend"
-      )
-    },
-    sponsorMap() {
-      return {
-        venue: this.venue,
-        platinum: this.platinums,
-        gold: this.golds,
-        silver: this.silvers,
-        community: this.community,
-        friends: this.friends,
-      };
-    }
-  }
+  },
 };
 </script>
 
-<style>
-.sponsors {
-  padding-top: 25px;
-  padding-bottom: 0;
+<style scoped>
+.sponsor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 160px;
+  color: inherit;
 }
 
-.sponsor-level {
-  padding-top: 0 !important;
-}
-
-.sponsor a {
-  text-decoration: none;
-}
-
-.sponsor img {
-  height: 100px;
-  width: 100px;
+.sponsor-logo {
+  height: 120px;
+  width: 160px;
   object-fit: contain;
-  margin: 0 10px;
 }
 
-.venue .sponsor img {
-  height: 350px;
-  width: 350px;
-  background-color: teal;
-  padding: 15px;
-}
-
-
-.gold .sponsor img {
-  height: 350px;
-  width: 350px;
-}
-
-.platinum .sponsor img {
-  height: 400px;
-  width: 400px;
-}
-
-.friends img {
-  border-radius: 50% !important;
-  height: 60px;
-  width: 60px;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-
+.sponsor-name {
+  font-size: 0.85rem;
+  color: #444;
 }
 </style>

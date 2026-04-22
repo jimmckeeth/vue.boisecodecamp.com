@@ -1,3 +1,11 @@
+// Update this each year — single source of truth for the sponsor packet date
+const BCC_EVENT_DATE = "Saturday, May 2, 2026";
+
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('event-date');
+  if (el) el.textContent = BCC_EVENT_DATE;
+});
+
 let sponsorLevel;
 let activeSponsorElem;
 let ppUpgrade;

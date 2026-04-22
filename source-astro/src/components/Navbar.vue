@@ -2,8 +2,8 @@
   <nav class="navbar fixed-top navbar-expand-lg transition p-3"
     :class="scrolled ? 'navbar-light bg-light z-depth' : 'navbar-dark bg-theme-dark'">
     <a class="d-flex align-items-center" href="/">
-      <img height="55" :src="scrolled ? logoImg : invertImg" alt="Boise Code Camp Logo"
-        :class="!scrolled ? 'drop-shadow' : ''" />
+      <img v-show="!scrolled" height="55" :src="invertImg" alt="Boise Code Camp Logo" class="drop-shadow" />
+      <img v-show="scrolled" height="55" :src="logoImg" alt="Boise Code Camp Logo" />
       <h4 class="m-0 ms-2 text-primary" :class="scrolled ? '' : 'text-shadow'">
         <span :class="scrolled ? 'text-dark' : 'text-white'">Boise</span>CodeCamp
       </h4>
@@ -23,15 +23,18 @@
         <li class="nav-item">
           <a class="nav-link text-uppercase" :class="isActive('/sessions') ? 'active' : ''" href="/sessions">Sessions</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-uppercase" :class="isActive('/schedule') ? 'active' : ''" href="/schedule">Schedule</a>
+        </li>
         <li class="nav-item" v-if="attend">
           <a :href="attend" target="_blank"
             rel="noopener" title="call for speakers" class="nav-link text-uppercase">
             Register</a>
         </li>
-        <li class="nav-item" v-if="cfs">
+        <!-- <li class="nav-item" v-if="cfs">
           <a :href="cfs" target="_blank" rel="noopener" title="call for speakers" class="nav-link text-uppercase">
             Want to Speak?</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a href="/sponsor-packet/index.html" target="_blank" rel="noopener" class="nav-link text-uppercase"
             title="Sponsor Packet">
@@ -82,8 +85,8 @@ export default {
       currentPath,
       attend,
       cfs,
-      invertImg,
-      logoImg,
+      invertImg: invertImg?.src ?? invertImg,
+      logoImg: logoImg?.src ?? logoImg,
       isActive
     };
   }

@@ -11,9 +11,9 @@ import SessionizeEmbed from '../components/SessionizeEmbed.vue';
 import Venue from '../components/Venue.vue';
 import Sponsors from '../components/Sponsors.vue';
 import Foot from '../components/Foot.vue';
-import { AppState } from '../AppState.js';
+import { loadSponsors } from '../utils/loadSponsors.js';
 
-const sponsors = AppState.sponsors;
+const sponsors = loadSponsors();
 ---
 
 <Layout title="Boise Code Camp 2026">
@@ -81,7 +81,7 @@ const sponsors = AppState.sponsors;
               </div>
             </div>
             <div class="my-3">
-              <Sponsors client:load />
+              <Sponsors sponsors={sponsors} client:load />
             </div>
           </div>
         </div>
