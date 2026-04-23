@@ -1,14 +1,14 @@
 # Boise Code Camp - Project Context
 
-This repository contains the official website for **Boise Code Camp**, a free annual community tech conference. The project is currently in a transition phase between two architectures.
+This repository contains the official website for **Boise Code Camp**, a free annual community tech conference. The project consists of two architectures, with the Vue 3 SPA as the primary production site.
 
 ## Repository Overview
 
-- **`source-astro/`**: The primary production site using Astro 6 and Vue 3 components.
-- **`legacy/`**: The original Vue 3 SPA (kept for reference).
+- **`vue/`**: The primary production site using a Vue 3 SPA architecture.
+- **`source-astro/`**: An experimental migration site using Astro 6 and Vue 3 components.
 - **`inf/`**: Infrastructure as Code (IaC) using Pulumi (Azure) for static hosting and CDN.
 - **`boisecodecamp.github.io/`**: A git submodule pointing to the GitHub Pages repository where the built site is deployed.
-- **`sponsors/`**: Contains sponsor assets and a `sponors.csv` file used by the Astro build.
+- **`sponsors/`**: Contains sponsor assets and a `sponors.csv` file used by the builds.
 
 ---
 
@@ -18,18 +18,18 @@ This repository contains the official website for **Boise Code Camp**, a free an
 - **Styling**: Bootstrap 5, SCSS, Material Design Icons (`@mdi/font`)
 - **Data Fetching**: Axios (integrating with Sessionize API)
 - **Infrastructure**: Pulumi (Azure Blob Storage, CDN)
-- **Testing**: Playwright (verification for the Astro migration)
+- **Testing**: Playwright (verification for the Astro version)
 
 ---
 
 ## Development & Build Commands
 
-### Vue SPA (`source/`)
+### Vue SPA (`vue/`)
 ```bash
-cd source
+cd vue
 npm install
 npm run serve      # Dev server (http://localhost:8080)
-npm run build      # Production build to source/dist
+npm run build      # Production build to vue/dist
 npm run lint       # ESLint with autofix
 ```
 
@@ -40,7 +40,7 @@ npm install
 npm run dev        # Dev server (http://localhost:4321)
 npm run build      # Production build to source-astro/dist
 npm run preview    # Preview production build locally
-npx playwright test # Run migration verification tests
+npx playwright test # Run verification tests
 ```
 
 ### Infrastructure (`inf/`)
@@ -55,11 +55,11 @@ pulumi up          # Deploy/update Azure infrastructure
 ## Key Design Patterns
 
 ### Centralized State & Config (`AppState.js`)
-Both `source/` and `source-astro/` use a reactive `AppState.js` file as the **Single Source of Truth**. This file contains:
+Both `vue/` and `source-astro/` use a reactive `AppState.js` file as the **Single Source of Truth**. This file contains:
 - **`SESSIONIZE_KEY`**: API key for fetching the year's speaker and session data.
 - **`STORAGE_KEY`**: Used to bust `localStorage` cache for Sessionize data.
 - **Event Details**: Date, venue, address, and registration URLs.
-- **Sponsor List**: (In `source/` manually, in `source-astro/` partially automated).
+- **Sponsor List**: Synchronized with the latest event data.
 
 ### Data Flow
 1. **Sessionize Service**: Fetches data from the Sessionize API and stores it in `AppState`.
@@ -70,7 +70,7 @@ Both `source/` and `source-astro/` use a reactive `AppState.js` file as the **Si
 
 ## Annual Update Workflow
 
-To update the site for a new year, follow this checklist in `AppState.js` (for both `source/` and `source-astro/`):
+To update the site for a new year, follow this checklist in `AppState.js` (for both `vue/` and `source-astro/`):
 
 1.  **Bump `STORAGE_KEY`**: (e.g., `BOISECODECAMP2026`) to clear visitor caches.
 2.  **Update `SESSIONIZE_KEY`**: Get the new key from the Sessionize dashboard.
@@ -84,5 +84,5 @@ To update the site for a new year, follow this checklist in `AppState.js` (for b
 
 1.  **Integrate**: Work is merged into the `main` branch.
 2.  **Deploy**: Pushing to the **`production`** branch triggers a GitHub Action.
-3.  **Build**: The action builds `source/` (`npm run build`).
-4.  **Publish**: The contents of `source/dist/` are pushed to the `boisecodecamp.github.io` submodule repo (GitHub Pages).
+3.  **Build**: The action builds `vue/` (`npm run build`).
+4.  **Publish**: The contents of `vue/dist/` are pushed to the `boisecodecamp.github.io` submodule repo (GitHub Pages).

@@ -29,6 +29,11 @@ const routes = [
     path: '/sessions',
     name: 'Sessions',
     component: loadPage('SessionsPage')
+  },
+  {
+    path: '/schedule',
+    name: 'Schedule',
+    component: loadPage('SchedulePage')
   }
 ]
 

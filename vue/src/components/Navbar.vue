@@ -31,6 +31,9 @@
           <router-link class="nav-link text-uppercase" :to="{ name: 'Speakers' }">Speakers</router-link>
         </li>
         <li class="nav-item">
+          <router-link class="nav-link text-uppercase" :to="{ name: 'Schedule' }">Schedule</router-link>
+        </li>
+        <li class="nav-item">
           <router-link class="nav-link text-uppercase" :to="{ name: 'Sessions' }">Sessions</router-link>
         </li>
         <li class="nav-item" v-if="attend">
@@ -38,10 +41,10 @@
             rel="noopener" title="call for speakers" class="nav-link text-uppercase">
             Register</a>
         </li>
-        <li class="nav-item" v-if="cfs">
+        <!-- <li class="nav-item" v-if="cfs">
           <a :href="cfs" target="_blank" rel="noopener" title="call for speakers" class="nav-link text-uppercase">
             Want to Speak?</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a href="/sponsor-packet/index.html" target="_blank" rel="noopener" class="nav-link text-uppercase"
             title="Sponsor Packet">

@@ -10,9 +10,11 @@ export const AppState = reactive({
   cfs: 'https://sessionize.com/boise-code-camp-2026/',
   register: 'https://www.eventbrite.com/e/copy-of-boise-code-camp-2026-tickets-1976644058589',
   currentYear: "2026",
+  appLink: "https://boise-code-camp-2026.sessionize.com/",
   event: {
     name: "Boise CodeCamp",
     date: "May 2",
+    fullDate: "Saturday, May 2, 2026",
     dTime: new Date("2026-05-02 9:00"),
     location: "Boise, ID",
     venue: "CWI Pintail Building / ADA Campus",
@@ -53,74 +55,48 @@ Diversity drives innovation. Our community embraces individuals from all walks o
 
 > Experience the thrill of rapid-fire lightning talks, where community members share insights, hacks, and personal stories about their coding journeys. These bite-sized presentations are not only informative but also inspiring, providing a unique opportunity to connect with like-minded individuals who share your enthusiasm for coding.`
     },
-    //     {
-    //       title: 'Youth Track',
-    //       img: collage,
-    //       description: `Do you have young coders? Are you a young person interested in technology? Boise Code Camp has an all-day track of coding and technology sessions aimed at youth ages 6 to 16. In the last year, millions of kids, many of them in our own community, have learned to code with the Hour of Code and tools like Scratch and Raspberry Pi. Boise Code Camp is representative of our community and the kids in our community are starting to code.
-
-    // The youth track is for the novice or experienced kid coder. In our Scratch sessions, new coders will find a very approachable platform and participants in the Hour of Code will find a very familiar interface style. Experienced coders will find challenging material for building a web site or can even sneak into an adult focused javscript or robotics session and learn what it's like to be a professional programmer. Also, what kid doesn't want to learn how to hack Minecraft and hang out with other kids who are also interested in technology?
-
-    // Kid coders as young as 6 years old up through high school can present if their submission is accepted.`
-    //     }
   ],
-  keynote: {
-    //     speaker: {
-    //       name: "Scott Nichols",
-    //       title: "Principal Cloud Solutions Architect",
-    //       company: "Microsoft",
-    //       img: "https://avatars.githubusercontent.com/u/1429587?v=4"
-    //     },
-    //     title:
-    //       "Navigating the Intersection of Human Expertise and AI Advancements: A Developer's Guide",
-    //     abstract:`In a rapidly evolving technological landscape, developers find themselves at a crucial crossroads where human expertise intersects with the advancements of Artificial Intelligence (AI). As a seasoned professional with a diverse background spanning emergency medical services to cloud architecture, Scott Nichols brings a unique perspective to this discussion.
-
-    // In this talk, Scott will delve into strategies for developers to remain effective in a world increasingly shaped by AI. Drawing from his extensive experience in IT, cloud architecture, and community leadership, he will explore the evolving role of developers amidst the proliferation of AI technologies.
-
-    // Through anecdotes from his diverse professional journey and a passion for outdoor pursuits, Scott will inspire developers to navigate the ever-changing technological landscape with confidence and resilience. This talk promises to equip developers with the insights and tools necessary to thrive in an era where collaboration between human expertise and AI capabilities is paramount`,
-    //     time: "8:45 - 9:30 AM",
-    //     session: "keynote",
-    //     location: "CodeWorks Lab"
-  },
+  keynote: {},
   sponsors: [
     {
-      id: 'cwi',
-      level: 'venue',
-      url: 'https://cwi.edu/',
-      name: 'College of Western Idaho',
-      logo: 'https://cwi.edu/sites/all/themes/huckleberry/images/cwi_footer_logo.png'
+      id: 'college-western-idaho',
+      name: 'College Western Idaho',
+      logo: '/img/sponsors/cwi-full-dark.svg',
+      url: 'https://cwi.edu/'
     },
-    // {
-    //   id: 'cwi',
-    //   level: 'platinum',
-    //   url: 'https://boisecodeworks.com/',
-    //   name: 'College of Western Idaho',
-    //   logo: 'https://cwi.edu/sites/all/themes/huckleberry/images/cwi_footer_logo.png'
-    // },
+    {
+      id: 'idaho-technology-council',
+      name: 'Idaho Technology Council',
+      logo: '/img/sponsors/itc.avif',
+      url: 'https://www.idahotechcouncil.org/'
+    },
+    {
+      id: 'zerrtech',
+      name: 'Zerrtech',
+      logo: '/img/sponsors/zertech.avif',
+      url: 'https://www.zerrtech.com/'
+    },
+    {
+      id: 'in-time-tech',
+      name: 'In Time Tech',
+      logo: '/img/sponsors/intimetech.svg',
+      url: 'https://www.intimetec.com/'
+    },
     {
       id: 'shooting-trio',
-      level: 'community',
-      url: 'https://shootingtrio.com/',
       name: 'Shooting Trio',
-      logo: '/img/shooting-trio.webp'
-    },
-    // {
-    //   id: 'codeworks',
-    //   level: 'community',
-    //   url: 'https://boisecodeworks.com/',
-    //   name: 'CodeWorks',
-    //   logo: 'https://bcw.blob.core.windows.net/public/img/8600856373152463'
-    // },
-    // {
-    //   id: 'jetbrains',
-    //   level: 'community',
-    //   url: 'https://www.jetbrains.com/',
-    //   name: 'JetBrains',
-    //   logo: 'https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg'
-    // },
+      logo: '/img/sponsors/shooting-trio.webp',
+      url: 'https://shootingtrio.com/'
+    }
   ],
   sessions: [],
   speakers: [],
-  schedule: [],
+  rooms: [],
+  gridData: null,
+  loading: true,
+  error: null,
+  activeSession: null,
+  activeSpeaker: null,
   volunteer: {
     shifts: [
       "Morning (07:00 AM - 11:00AM)",

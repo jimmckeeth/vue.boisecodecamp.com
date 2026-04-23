@@ -1,25 +1,25 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Gemini CLI when working with code in this repository.
 
 ## Repository Overview
 
-This repo contains the Boise Code Camp website — an annual free community tech conference. There are **two separate implementations** side by side:
+This repo contains the Boise Code Camp website — an annual free community tech conference. There are **two implementations** side by side:
 
-- **`source/`** — Original Vue 3 SPA built with Vite. This is the currently deployed site.
-- **`source-astro/`** — In-progress migration to Astro 6 with Vue 3 components (verified with Playwright).
+- **`vue/`** — Primary Vue 3 SPA built with Vite. This is the production site.
+- **`source-astro/`** — Experimental migration to Astro 6 with Vue 3 components.
 
 The built output is pushed to `boisecodecamp.github.io/` (a git submodule pointing to the GitHub Pages repo).
 
 ## Commands
 
-### Vue SPA (`source/`)
+### Vue SPA (`vue/`)
 
 ```bash
-cd source
+cd vue
 npm install
 npm run serve      # dev server at http://localhost:8080
-npm run build      # outputs to source/dist
+npm run build      # outputs to vue/dist
 npm run lint       # ESLint with auto-fix
 ```
 
@@ -30,18 +30,18 @@ cd source-astro
 npm install
 npm run dev        # dev server
 npm run build      # production build
-npx playwright test  # run migration verification tests
+npx playwright test  # run verification tests
 ```
 
 ## Deployment
 
-- **CI trigger:** Push to the `production` branch runs `.github/workflows/build-client.yml`, which builds `source/` and pushes `source/dist` to the GitHub Pages repo.
+- **CI trigger:** Push to the `production` branch runs `.github/workflows/build-client.yml`, which builds `vue/` and pushes `vue/dist` to the GitHub Pages repo.
 - The `static` branch holds a pre-built static version.
 - The `main` branch is the integration branch.
 
 ## Architecture
 
-### Shared patterns (both `source/` and `source-astro/`)
+### Shared patterns (both `vue/` and `source-astro/`)
 
 Both implementations share the same structure and many of the same files:
 
@@ -50,11 +50,6 @@ Both implementations share the same structure and many of the same files:
 - **`services/`** — Service layer handles all external data fetching. Components never fetch directly.
 - **`pages/`** — Top-level route components (Vue) or Astro page files.
 - **`components/`** — Reusable Vue components (Navbar, Hero, SessionList, Speaker, Sponsors, etc.).
-
-### Astro-specific
-
-- `source-astro/src/layouts/Layout.astro` — Root HTML shell; imports global SCSS, MDI icons, Bootstrap JS, and mounts `Init.vue` with `client:load` to trigger Sessionize data loading on the client.
-- `source-astro/src/components/Init.vue` — Invisible component that calls `SessionizeService.loadData()` on mount. Required on every page for data to populate.
 
 ### Styling
 

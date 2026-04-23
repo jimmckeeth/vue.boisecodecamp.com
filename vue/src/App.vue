@@ -13,6 +13,13 @@ export default {
   setup() {
 
     onMounted(() => {
+      // Small hack to ensure we aren't using an old schema
+      const key = AppState.STORAGE_KEY
+      const cached = localStorage.getItem(key)
+      if (cached && !cached.includes('gridData')) {
+        console.log('Clearing old sessionize cache schema')
+        localStorage.removeItem(key)
+      }
       SessionizeService.loadData()
     })
 

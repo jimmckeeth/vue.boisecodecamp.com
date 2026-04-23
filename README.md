@@ -5,8 +5,8 @@ The primary website for [Boise Code Camp](https://boisecodecamp.com), a free ann
 ## Repository Layout
 
 ```
-source-astro/   Astro 6 + Vue 3 — primary production site
-legacy/         Vue 3 SPA — original site (for reference)
+vue/            Vue 3 SPA — primary production site
+source-astro/   Astro 6 + Vue 3 — experimental migration site
 inf/            Pulumi infrastructure (Azure)
 boisecodecamp.github.io/  Built output (git submodule → GitHub Pages)
 ```
@@ -15,7 +15,7 @@ boisecodecamp.github.io/  Built output (git submodule → GitHub Pages)
 
 ## Updating for a New Year
 
-All year-specific content lives in `source-astro/src/AppState.js`. Update these fields:
+All year-specific content lives in `vue/src/AppState.js`. Update these fields:
 
 | Field                          | Description                                                       |
 | ------------------------------ | ----------------------------------------------------------------- |
@@ -33,7 +33,23 @@ All year-specific content lives in `source-astro/src/AppState.js`. Update these 
 
 ## Development
 
-### Production Astro site (`source-astro/`)
+### Production Vue site (`vue/`)
+
+```bash
+cd vue
+npm install
+
+# Local dev server (http://localhost:8080 by default)
+npm run serve
+
+# Production build
+npm run build
+
+# Local preview of production build (requires a static server)
+# e.g., npx serve dist
+```
+
+### Experimental Astro site (`source-astro/`)
 
 ```bash
 cd source-astro
@@ -49,51 +65,14 @@ npm run build
 npm run preview
 ```
 
-### Legacy Vue SPA (`legacy/`)
-
-```bash
-cd legacy
-npm install
-
-# Local dev server (http://localhost:8080 by default)
-npm run serve
-
-# Lint
-npm run lint
-```
-
----
-
-## Testing
-
-Tests live in `source-astro/tests/` and use Playwright. They run against a production preview build (not the dev server).
-
-```bash
-cd source-astro
-
-# Run all tests (builds the site first, then serves it)
-npx playwright test
-
-# Run a specific test file
-npx playwright test tests/migration.spec.js
-
-# Run with visible browser
-npx playwright test --headed
-
-# Install browsers (first time only)
-npx playwright install chromium
-```
-
-The `playwright.config.js` automatically runs `npm run build && npm run preview` before the suite. If a server is already running on port 4321, it reuses it.
-
 ---
 
 ## Deployment
 
 Deployment is triggered by pushing to the **`production`** branch. GitHub Actions (`.github/workflows/build-client.yml`) then:
 
-1. Builds `source-astro/` with `npm ci && npm run build`
-2. Pushes the contents of `source-astro/dist/` to the GitHub Pages repository
+1. Builds `vue/` with `npm ci && npm run build`
+2. Pushes the contents of `vue/dist/` to the GitHub Pages repository
 
 ```bash
 # Merge your changes to production and push
